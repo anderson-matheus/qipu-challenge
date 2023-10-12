@@ -1,8 +1,8 @@
-import unittest
-from src.linked_list import LinkedList, OutOfBoundsException
+from unittest import TestCase
+from linked_list import LinkedList, OutOfBoundsException
 
 
-class TestLinkedList(unittest.TestCase):
+class TestLinkedList(TestCase):
     def test_linked_list(self):
         ll = LinkedList()
         assert(ll.head is None)
