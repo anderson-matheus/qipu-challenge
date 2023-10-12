@@ -61,14 +61,18 @@ class LinkedList(object):
         """
         Esta propriedade deve retornar o valor do primeiro nó da lista ligada
         """
-        pass
+        if not self._head:
+            return None
+        return self._head.value
 
     @property
     def tail(self):
         """
         Esta propriedade deve retornar o valor do último nó da lista ligada
         """
-        pass
+        if not self._tail:
+            return None
+        return self._tail.value
 
     def append(self, value):
         """
@@ -77,7 +81,17 @@ class LinkedList(object):
 
         Exemplo: [1, 2, 3] - append(0) - [1, 2, 3, 0]
         """
-        pass
+        linked_list_node = LinkedListNode(value)
+        current = self._head
+        if current:
+            while current.next:
+                current = current.next
+            current.next = linked_list_node
+            self._tail = linked_list_node
+        else:
+            self._head = linked_list_node
+            self._tail = linked_list_node
+        self._len += 1
 
     def insert(self, value):
         """
@@ -86,25 +100,54 @@ class LinkedList(object):
 
         Exemplo: [1, 2, 3] - insert(0) - [0, 1, 2, 3]
         """
-        pass
+        linked_list_node = LinkedListNode(value)
+        linked_list_node.next = self._head
+        self._head = linked_list_node
+        self._len += 1
+
 
     def removeFirst(self):
         """
         Esta função deve remover o primeiro elemento da lista e retornar o seu valor.
         Apos a execução, a lista ligada deve ter um elemento a menos.
         """
-        pass
+        if not self._head:
+            return None
+        temp = self._head
+        value = temp.value
+        self._head = self._head.next
+        temp = None
+        self._len -= 1
+        return value
 
     def getValueAt(self, index):
         """
         Esta função deve retornar o valor de um nó na posição definida por INDEX.
         Se o index for maior do que o tamanho da lista, retornar OutOfBoundsException
         """
-        pass
+        if index > self._len:
+            raise OutOfBoundsException('index greather than len')
+
+        count = 0
+        current = self._head
+
+        if current:
+            while count != index:
+                current = current.next
+                count += 1
+            if current:
+                return current.value
+        return None
 
     def toList(self):
         """
         Esta função retornar uma representação em forma de vetor ([1, 2, 3....])
         da lista ligada
         """
-        pass
+        items = []
+        current = self._head
+        
+        while current != None:
+            items.append(current.value)
+            current = current.next
+        return items
